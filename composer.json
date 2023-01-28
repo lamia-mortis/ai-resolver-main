@@ -1,11 +1,11 @@
 {
-    "name": "laravel/laravel",
+    "name": "lamia-mortis/ai-resolver",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "description": "Artificial Intelligence for the puzzle resolving",
+    "keywords": ["framework", "laravel, ai"],
     "license": "MIT",
     "require": {
-        "php": "^8.0.2",
+        "php": "^8.2.1",
         "guzzlehttp/guzzle": "^7.2",
         "jenssegers/mongodb": "^3.9",
         "laravel/framework": "^9.19",
@@ -14,6 +14,7 @@
         "mongodb/mongodb": "^1.15"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.7",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.0.1",
