@@ -20,9 +20,9 @@
                                 <a href="javascript:void(0)" class="nav-link text-white">What to solve?</a> 
                                 <div>
                                     <ul>
-                                        {{-- todo make list generated dinamical from the DB --}}
-                                        <li>Cube</li>
-                                        <li>Sudoku</li>
+                                        @foreach($puzzles as $puzzle)
+                                            <li>{{ $puzzle['name'] }}</li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </li>
