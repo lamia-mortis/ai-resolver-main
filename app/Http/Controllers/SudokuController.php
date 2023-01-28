@@ -24,12 +24,14 @@ class SudokuController extends Controller
 
     /**
      * default properties of the props:array see in HandleInertiaRequest share() method
-     * @return \Inertia\Response{component:string,props:array}
+     * @return \Inertia\Response{component:string,props:array<sudokuSolveUrl:string>}
      */
     public function index(): InertiaResponse
     {
         [$componentPath, $componentName] = get_component_path(self::PUZZLE_KEY, __FUNCTION__);
-        return Inertia::render("$componentPath/$componentName");
+        return Inertia::render("$componentPath/$componentName", [
+            'sudokuSolveUrl' => route(self::PUZZLE_KEY . ".solve"),
+        ]);
     }
 
     /**

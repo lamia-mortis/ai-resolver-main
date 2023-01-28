@@ -1,0 +1,36 @@
+.sudoku-board-container {
+  margin-top: 2vh;
+  .sudoku-board {
+    border: 3px solid wheat;
+    .sudoku-board-row {
+      border: 1px solid wheat;
+      .sudoku-board-cell {
+        background-color: rgb(56, 53, 49);
+        border: 1px solid wheat;
+        width: 50px;
+        height: 50px;
+        .sudoku-board-input {
+          width: 50px;
+          height: 50px;
+          margin: 0;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+
+      }
+    }
+  }
+  .sudoku-board-submit {
+    width: 150px;
+    height: 40px;
+    color: white;
+    background-color: #136d43;
+    margin-top: 2vh;
+    border-radius: 4px;
+    border: 0;
+  }
+}
