@@ -10,15 +10,10 @@ use App\Services\PuzzlesGeneralService;
 
 class SudokuController extends Controller
 {
-
-    public function __construct(
-        protected PuzzlesGeneralService $puzzlesGeneralService
-    ){}
-
-    public function index(): View
+    public function index(PuzzlesGeneralService $puzzlesGeneralService): View
     {
         return view('sudoku.index',[
-            'puzzles' => $this->puzzlesGeneralService->getGeneralPuzzlesInfo()
+            'puzzles' => $puzzlesGeneralService->getGeneralPuzzlesInfo()
         ]);
     }
 }
