@@ -15,5 +15,6 @@ Route::prefix('/cube')->group(static function() {
 });
 
 Route::prefix('/sudoku')->group(static function() {
-    Route::get('/', [SudokuController::class, 'index'])->name('sudoku.index');
+    Route::get('/', [SudokuController::class, 'index'])->name('sudoku.index'); 
+    Route::post('/solve', [SudokuController::class, 'solve'])->name('sudoku.solve');
 });
