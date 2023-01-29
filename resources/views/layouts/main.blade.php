@@ -11,26 +11,24 @@
         @vite(['resources/scss/app.scss', 'resources/js/app.jsx'])
     </head> 
     <body class="bg-dark">
+        @javascript([
+            'puzzles' => $puzzles,
+        ])
+
         <header>
             <div class="px-3 py-2 text-bg-dark">
                 <div class="container">
                     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                         <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                             <li>
-                                <a href="javascript:void(0)" class="nav-link text-white">What to solve?</a> 
-                                <div>
-                                    <ul>
-                                        @foreach($puzzles as $puzzle)
-                                            <li>{{ $puzzle['name'] }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
+                                <a id="puzzles-navbar-button" href="javascript:void(0)" class="nav-link text-white">What to solve?</a> 
+                                <div id="puzzles-navbar-container"></div>
                             </li>
                             <li>
-                                <a href="javascript:void(0)" class="nav-link text-secondary">Algorithms</a>
+                                <a id="algoritms-navbar-button" href="javascript:void(0)" class="nav-link text-secondary">Algorithms</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)" class="nav-link text-secondary">Placeholder</a>
+                                <a id="history-navbar-button" href="javascript:void(0)" class="nav-link text-secondary">History</a>
                             </li>
                             <li>
                                 <a href="javascript:void(0)" class="nav-link text-secondary">Placeholder</a>
@@ -44,7 +42,7 @@
             </div>
         </header>
         <main>
-            <div class="ai-main-container container">
+            <div id="ai-main-container" class="container">
                 @yield('content')
             </div>
         </main>

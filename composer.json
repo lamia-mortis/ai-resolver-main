@@ -11,7 +11,8 @@
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
-        "mongodb/mongodb": "^1.15"
+        "mongodb/mongodb": "^1.15",
+        "spatie/laravel-blade-javascript": "^2.7"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",

@@ -3,5 +3,6 @@
 @section('title', 'Sudoku')
 
 @section('content')
-    <div class="sudoku-main-container text-white">SUDOKU PAGE</div> 
+    @javascript('pageInfo', $pageInfo)
+    <div id="sudoku-main-container" class="text-white"></div> 
 @endsection

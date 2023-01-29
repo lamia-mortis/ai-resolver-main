@@ -11,10 +11,13 @@ use Illuminate\Http\JsonResponse;
 
 class SudokuController extends Controller
 {
+    private const PUZZLE_KEY = 'sudoku';
+
     public function index(PuzzlesGeneralService $puzzlesGeneralService): View
     {
         return view('sudoku.index',[
             'puzzles' => $puzzlesGeneralService->getGeneralPuzzlesInfo(),
+            'pageInfo' => ['currentPuzzle' => self::PUZZLE_KEY , 'type' => __FUNCTION__],
         ]);
     }
 
