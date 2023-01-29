@@ -3,8 +3,6 @@
 @section('title', 'Rubik\'s Cube')
 
 @section('content') 
-    <div class="rubik-cube-main-container text-white">
-        CUBE PAGE
-        <div id="rubik-cube-sample-content" class="text-white"></div>
-    </div>
+    @javascript('pageInfo', $pageInfo)
+    <div id="rubik-cube-main-container" class="text-white"></div>
 @endsection
