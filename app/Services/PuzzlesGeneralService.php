@@ -14,6 +14,12 @@ class PuzzlesGeneralService
 
     public function getGeneralPuzzlesInfo(): array
     {
-        return $this->puzzlesGeneralMongoCollection->getPuzzles();
+        $puzzles = $this->puzzlesGeneralMongoCollection->getPuzzles(); 
+        foreach($puzzles as &$puzzle) {
+            $routeName = $puzzle['key'];
+            $puzzle['url'] = route("$routeName.index");
+        }
+
+        return $puzzles;
     }
 }

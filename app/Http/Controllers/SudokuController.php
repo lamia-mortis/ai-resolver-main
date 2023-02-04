@@ -13,14 +13,8 @@ class SudokuController extends Controller
 {
     public function index(PuzzlesGeneralService $puzzlesGeneralService): View
     {
-        $puzzles = $puzzlesGeneralService->getGeneralPuzzlesInfo(); 
-        foreach($puzzles as &$puzzle) {
-            $routeName = $puzzle['key'];
-            $puzzle['url'] = route("$routeName.index");
-        }
-
         return view('sudoku.index',[
-            'puzzles' => $puzzles,
+            'puzzles' => $puzzlesGeneralService->getGeneralPuzzlesInfo(),
         ]);
     }
 
