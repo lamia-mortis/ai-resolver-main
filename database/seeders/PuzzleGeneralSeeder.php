@@ -18,7 +18,7 @@ class PuzzleGeneralSeeder extends Seeder
     public function run()
     {
         DB::table('puzzles_general')->insert([
-            ['key' => 'r_cube', 'name' => 'Cube'], 
+            ['key' => 'rubik-cube', 'name' => 'Rubik\'s Cube'], 
             ['key' => 'sudoku', 'name' => 'Sudoku'],
         ]);
     }
