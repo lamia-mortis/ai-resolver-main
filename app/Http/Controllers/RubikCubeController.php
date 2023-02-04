@@ -8,12 +8,12 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use App\Services\PuzzlesGeneralService;
 
-class CubeController extends Controller
+class RubikCubeController extends Controller
 {
     public function index(PuzzlesGeneralService $puzzlesGeneralService): View
     {
-        return view('cube.index', [
-            'puzzles' => $puzzlesGeneralService->getGeneralPuzzlesInfo()
+        return view('rubik-cube.index', [
+            'puzzles' => $puzzlesGeneralService->getGeneralPuzzlesInfo(),
         ]);
     }
 }
