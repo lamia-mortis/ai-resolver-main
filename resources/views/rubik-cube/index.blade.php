@@ -4,5 +4,5 @@
 
 @section('content') 
     @javascript('pageInfo', $pageInfo)
-    <div id="rubik-cube-main-container" class="text-white"></div>
+    <div id="{{ $pageInfo['currentPuzzle'] }}-main-container" class="text-white"></div>
 @endsection
