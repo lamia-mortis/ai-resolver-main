@@ -8,13 +8,13 @@
         </title>
 
         @viteReactRefresh
-        @vite(['resources/scss/app.scss', 'resources/js/app.jsx'])
+        @vite(['resources/scss/app.scss', 'resources/js/app.tsx'])
     </head> 
     <body class="bg-dark">
         @javascript([
             'puzzles' => $puzzles,
         ])
-
+ 
         <header>
             <div class="px-3 py-2 text-bg-dark">
                 <div class="container">

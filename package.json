@@ -2,17 +2,25 @@
     "private": true,
     "scripts": {
         "dev": "vite",
-        "build": "vite build", 
+        "build": "vite build",
         "watch": "vite build --watch"
     },
     "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^5.51.0",
+        "@typescript-eslint/parser": "^5.51.0",
         "axios": "^1.1.2",
+        "eslint": "^8.33.0",
+        "eslint-plugin-react": "^7.32.2",
         "laravel-vite-plugin": "^0.7.2",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
+        "prettier": "2.8.4",
+        "typescript": "^4.9.5",
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "@types/react": "^18.0.27",
+        "@types/react-dom": "^18.0.10",
         "@vitejs/plugin-react": "^3.0.0",
         "bootstrap": "^5.2.3",
         "react": "^18.2.0",
