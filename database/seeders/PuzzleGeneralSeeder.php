@@ -6,7 +6,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder; 
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB; 
+use App\Services\Puzzles; 
 
 class PuzzleGeneralSeeder extends Seeder
 {
@@ -18,8 +19,8 @@ class PuzzleGeneralSeeder extends Seeder
     public function run()
     {
         DB::table('puzzles_general')->insert([
-            ['key' => 'rubik-cube', 'name' => 'Rubik\'s Cube'], 
-            ['key' => 'sudoku', 'name' => 'Sudoku'],
+            ['key' => Puzzles::RUBIK_CUBE->value, 'name' => 'Rubik\'s Cube'], 
+            ['key' => Puzzles::SUDOKU->value, 'name' => 'Sudoku'],
         ]);
     }
 }
