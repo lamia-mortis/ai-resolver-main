@@ -1,5 +1,6 @@
 'use strict';
 
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import SudokuIndex from '../Sudoku/SudokuIndex';
 import RubikCubeIndex from '../RubikCube/RubikCubeIndex';
@@ -11,15 +12,14 @@ const Components = {
 };
 
 const componentName = pageInfo.currentPuzzle + '-' + pageInfo.type;
+const Element = getComponent(componentName);
+// TODO create custom errorHandler to handle null Elements
 const dropDownMenuContainer = document.getElementById('puzzles-navbar-container');
-const dropDownMenuRoot = ReactDOM.createRoot(dropDownMenuContainer);
-dropDownMenuRoot.render(<DropDownMenuWrapper />);
+const puzzleMainContainer = document.getElementById(`${pageInfo.currentPuzzle}-main-container`);
 
 function getComponent(componentName) {
   return Components[componentName];
 }
 
-const Element = getComponent(componentName);
-ReactDOM.createRoot(document.getElementById(`${pageInfo.currentPuzzle}-main-container`)).render(
-  <Element />
-);
+ReactDOM.createRoot(dropDownMenuContainer as Element).render(<DropDownMenuWrapper puzzles={puzzles} />);
+ReactDOM.createRoot(puzzleMainContainer as Element).render(<Element />);
