@@ -2,11 +2,13 @@
 
 import React, { useState } from 'react';
 import { usePage } from '@inertiajs/react';
+import { IDropDownMenuData } from '../../../interfaces/types';
 import DropDownMenu from '../../Partials/DropDownMenu/DropDownMenu';
-import { SharedPropsInterface } from '../../../interfaces/types';
 
 export default function Navbar() {
-  const { puzzles, flexibleConfigUrl }: SharedPropsInterface = usePage().props;
+  const { puzzles, flexibleConfigIndexUrl } = usePage().props;
+  const puzzlesTyped = puzzles as Array<IDropDownMenuData>;
+  const flexibleConfigIndexUrlTyped = flexibleConfigIndexUrl as string;
   const [isDropDownMenuShown, setIsDropDownMenuShown] = useState(false);
 
   return (
@@ -25,7 +27,7 @@ export default function Navbar() {
               What to solve?
             </a>
             <div id='puzzles-navbar-container'>
-              {isDropDownMenuShown && <DropDownMenu data={puzzles} />}
+              {isDropDownMenuShown && <DropDownMenu data={puzzlesTyped} />}
             </div>
           </li>
           <li>
@@ -52,7 +54,7 @@ export default function Navbar() {
             </a>
           </li>
           <li>
-            <a href='javascript:void(0)' className='nav-link text-secondary'>
+            <a href={flexibleConfigIndexUrlTyped} className='nav-link text-secondary'>
               Flexible Configuration
             </a>
           </li>

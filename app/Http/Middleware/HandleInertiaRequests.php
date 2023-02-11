@@ -34,7 +34,7 @@ class HandleInertiaRequests extends Middleware
 
     /**
      * default properties of the props:[], that are always present in the server response
-     * @return array{puzzles:\App\Services\DTOs\PuzzleData{url:string}|stdClass{}[],flexibleConfigIndexUrl:string,errors:callable}
+     * @return array{puzzles:\App\Services\DTOs\PuzzleData{url:string}[],flexibleConfigIndexUrl:string,errors:callable}
      */
     public function share(Request $request): array
     {
