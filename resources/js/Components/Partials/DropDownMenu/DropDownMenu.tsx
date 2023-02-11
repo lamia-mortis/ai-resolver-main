@@ -1,13 +1,13 @@
 'use strict';
 
 import React from 'react';
-import { DropDownMenuData } from '../../../interfaces/types';
+import { IDropDownMenuData } from '../../../interfaces/types';
 
-interface DropDownMenuProps {
-  data: Array<DropDownMenuData>;
+interface IDropDownMenuProps {
+  data: Array<IDropDownMenuData>;
 }
 
-export default function DropDownMenu({ data }: DropDownMenuProps): JSX.Element {
+export default function DropDownMenu({ data }: IDropDownMenuProps): JSX.Element {
   return (
     <ul>
       {data.map((row, index) => {
