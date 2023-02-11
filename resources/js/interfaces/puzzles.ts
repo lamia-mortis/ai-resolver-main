@@ -1,4 +1,4 @@
-export interface Puzzle {
+export interface IPuzzle {
   key: string;
   name: string;
   url: string;

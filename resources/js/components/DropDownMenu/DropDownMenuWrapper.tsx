@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 import DropDownMenu from './DropDownMenu';
-import { Puzzle } from '../../interfaces/puzzles';
+import { IPuzzle } from '../../interfaces/puzzles';
 
 interface DropDownMenuWrapperProps {
-  puzzles: Array<Puzzle>;
+  puzzles: Array<IPuzzle>;
 }
 
 export default function DropDownMenuWrapper({ puzzles }: DropDownMenuWrapperProps): JSX.Element {
