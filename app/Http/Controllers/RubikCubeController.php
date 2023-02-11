@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request; 
 use Inertia\Response as InertiaResponse;
 use App\Services\PuzzlesGeneralService; 
-use App\Services\Puzzles; 
+use App\Services\Enums\Puzzles; 
 use Inertia\Inertia;
 
 class RubikCubeController extends Controller
