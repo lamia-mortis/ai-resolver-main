@@ -18,7 +18,6 @@ class PuzzlesGeneralService
         foreach($puzzles as &$puzzle) {
             $routeName = $puzzle['key'];
             $puzzle['url'] = route("$routeName.index");
-            unset($puzzle['_id']);
         }
 
         return $puzzles;
