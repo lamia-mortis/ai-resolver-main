@@ -16,9 +16,7 @@ class RubikCubeController extends Controller
 
     public function index(PuzzlesGeneralService $puzzlesGeneralService): InertiaResponse
     {
-        $componentPath = implode(array_map('ucfirst', explode('-', self::PUZZLE_KEY))); 
-        $componentName = $componentPath . ucfirst(__FUNCTION__);
-        
+        [$componentPath, $componentName] = get_component_path(self::PUZZLE_KEY, __FUNCTION__);
         return Inertia::render("$componentPath/$componentName");
     }
 }

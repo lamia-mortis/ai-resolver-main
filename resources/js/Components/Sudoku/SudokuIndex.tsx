@@ -3,5 +3,5 @@
 import React from 'react';
 
 export default function SudokuIndex() {
-  return <div>SUDOKU</div>;
+  return <div className="text-white">SUDOKU</div>;
 }
