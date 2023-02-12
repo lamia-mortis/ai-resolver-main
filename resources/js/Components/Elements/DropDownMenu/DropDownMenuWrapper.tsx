@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import DropDownMenu from './DropDownMenu';
-import { IPuzzle } from '../../interfaces/puzzles';
+import { IPuzzle } from '../../';
 
 interface DropDownMenuWrapperProps {
   puzzles: Array<IPuzzle>;

@@ -3,18 +3,11 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>
-            @yield('title')
-        </title>
-
         @viteReactRefresh
-        @vite(['resources/scss/app.scss', 'resources/js/app.tsx'])
+        @vite(['resources/scss/app.scss', 'resources/js/app.tsx']) 
+        @inertiaHead
     </head> 
     <body class="bg-dark">
-        @javascript([
-            'puzzles' => $puzzles,
-        ])
- 
         <header>
             <div class="px-3 py-2 text-bg-dark">
                 <div class="container">
@@ -42,9 +35,7 @@
             </div>
         </header>
         <main>
-            <div id="ai-main-container" class="container">
-                @yield('content')
-            </div>
+            @inertia
         </main>
         <footer></footer>
     </body>
