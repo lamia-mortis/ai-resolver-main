@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import { IPuzzle } from '../../interfaces/puzzles';
+import { IPuzzle } from '../../../interfaces/puzzles';
 
 interface DropDownMenuProps {
   puzzles: Array<IPuzzle>;

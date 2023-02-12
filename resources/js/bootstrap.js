@@ -1,7 +1,7 @@
 'use strict';
 
-import GlobalErrorsHandler from './helpers/errors/GlobalErrorsHandler';
-window.onerror = GlobalErrorsHandler;
+import GlobalErrorsHandler from './errors/globalErrorsHandler';
+window.onerror = GlobalErrorsHandler; 
 
 import _, { words } from 'lodash';
 window._ = _;
