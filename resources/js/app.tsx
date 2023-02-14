@@ -1,16 +1,16 @@
 'use strict';
 
-import './bootstrap'; 
+import './bootstrap';
 import React from 'react';
-import { createInertiaApp } from '@inertiajs/react'
-import { createRoot } from 'react-dom/client'
+import { createInertiaApp } from '@inertiajs/react';
+import { createRoot } from 'react-dom/client';
 
 createInertiaApp({
-  resolve: name => {
-    const pages = import.meta.glob('./Components/**/*.tsx', { eager: true })
-    return pages[`./Components/${name}.tsx`]
+  resolve: (name) => {
+    const pages = import.meta.glob('./Components/Pages/**/*.tsx', { eager: true });
+    return pages[`./Components/Pages/${name}.tsx`];
   },
   setup({ el, App, props }) {
-    createRoot(el).render(<App {...props} />)
+    createRoot(el).render(<App {...props} />);
   },
-})
+});
