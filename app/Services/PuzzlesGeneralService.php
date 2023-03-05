@@ -12,14 +12,14 @@ class PuzzlesGeneralService
         protected PuzzlesGeneralMongoCollection $puzzlesGeneralMongoCollection
     ){}
 
+    /**
+     * @return \App\Services\DTOs\PuzzleData{url:string}[];
+     */
     public function getGeneralPuzzlesInfo(): array
     {
-        $puzzles = $this->puzzlesGeneralMongoCollection->getPuzzles(); 
-        foreach($puzzles as &$puzzle) {
-            $routeName = $puzzle['key'];
-            $puzzle['url'] = route("$routeName.index");
-        }
-
-        return $puzzles;
+        return array_map(
+            static fn($puzzle) => $puzzle->getWithUrl(), 
+            $this->puzzlesGeneralMongoCollection->getPuzzles()
+        );
     }
 }

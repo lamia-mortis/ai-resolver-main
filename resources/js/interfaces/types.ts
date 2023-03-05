@@ -10,4 +10,5 @@ export interface DropDownMenuData {
 
 export interface SharedPropsInterface extends Page<PageProps> {
   puzzles: Array<DropDownMenuData>;
+  flexibleConfigIndexUrl: string;
 }

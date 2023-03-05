@@ -29,5 +29,5 @@ Route::prefix("/$sudoku")->group(static function() use($sudoku) {
 
 Route::prefix("/$flexibleConfig")->group(static function() use($flexibleConfig) {
     Route::get('/',[FlexibleConfigController::class, 'index'])->name("$flexibleConfig.index"); 
-    Route::post('/store', [FlexibleConfigController::class, 'store'])->name("$flexibleConfig.store");
+    Route::put('/update', [FlexibleConfigController::class, 'update'])->name("$flexibleConfig.update");
 });

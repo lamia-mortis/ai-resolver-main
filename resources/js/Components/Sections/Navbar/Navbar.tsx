@@ -6,7 +6,7 @@ import DropDownMenu from '../../Partials/DropDownMenu/DropDownMenu';
 import { SharedPropsInterface } from '../../../interfaces/types';
 
 export default function Navbar() {
-  const { puzzles }: SharedPropsInterface = usePage().props;
+  const { puzzles, flexibleConfigUrl }: SharedPropsInterface = usePage().props;
   const [isDropDownMenuShown, setIsDropDownMenuShown] = useState(false);
 
   return (
@@ -53,7 +53,7 @@ export default function Navbar() {
           </li>
           <li>
             <a href='javascript:void(0)' className='nav-link text-secondary'>
-              Placeholder
+              Flexible Configuration
             </a>
           </li>
         </ul>
