@@ -13,13 +13,10 @@ class PuzzlesGeneralService
     ){}
 
     /**
-     * @return \App\Services\DTOs\PuzzleData{url:string}[];
+     * @return \App\Services\DTOs\PuzzleData[];
      */
     public function getGeneralPuzzlesInfo(): array
     {
-        return array_map(
-            static fn($puzzle) => $puzzle->getWithUrl(), 
-            $this->puzzlesGeneralMongoCollection->getPuzzles()
-        );
+        return $this->puzzlesGeneralMongoCollection->getPuzzles();
     }
 }
