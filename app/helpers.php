@@ -3,6 +3,8 @@
 declare(strict_types=1); 
 
 if (! function_exists('get_component_path')) {
+    
+    /** @return array{string,string} */
     function get_component_path(string $componentKey, string $requestType): array
     {
         $delimiter = strpos($componentKey, '-') === false ? '_' : '-';
@@ -13,13 +15,11 @@ if (! function_exists('get_component_path')) {
     }
 }
 
-if (! function_exists('filter_mongo_id')) {
-    function filter_mongo_id(array $mongoData): array
+if (! function_exists('is_nested_object_valid')) {
+    function is_nested_object_valid(object $object, array $keys): bool
     {
-        foreach($mongoData as &$row) {
-            unset($row['_id']);
-        } 
-        
-        return $mongoData;
+        return empty(
+            array_filter($keys, static fn($key) => !property_exists($object, $key))
+        );
     }
 }

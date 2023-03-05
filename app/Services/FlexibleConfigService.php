@@ -6,23 +6,13 @@ namespace App\Services;
 
 use App\DbGateway\FlexibleConfigCollection; 
 use App\Services\Enums\FlexibleConfigs;
+use App\Services\DTOs\FlexibleConfig\FlexibleConfigData;
 
 class FlexibleConfigService 
 {
     public function __construct(
         protected FlexibleConfigCollection $flexibleConfigCollection
     ) {} 
-
-    public function getCommonSection(): array
-    {
-        // trying to get the first array element with reset()
-        $sectionSettings = $this->flexibleConfigCollection->getCommonSection(); 
-        $sectionSettings = reset($sectionSettings) ==! false ? reset($sectionSettings) : [];
-        
-        return !empty($sectionSettings) && isset($sectionSettings[FlexibleConfigs::COMMON_SECTION->value]) 
-            ? (array)json_decode($sectionSettings[FlexibleConfigs::COMMON_SECTION->value]) 
-            : [];
-    }
 
     public function updateCommonSection(array $newSectionSettings): bool 
     {
@@ -33,15 +23,8 @@ class FlexibleConfigService
             : false;
     }
 
-    public function getAllSections(): array 
+    public function getAllSections(): FlexibleConfigData 
     {
-        $allSectionsConfig = $this->flexibleConfigCollection->getAllSections();
-        
-        return empty($allSectionsConfig) 
-            ? []
-            : array_map(
-                static fn($sectionSettings) => json_decode($sectionSettings), 
-                ...$allSectionsConfig
-              );
+        return $this->flexibleConfigCollection->getAllSections();
     }
 }

@@ -6,21 +6,24 @@ namespace App\DbGateway;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Services\Enums\Puzzles; 
 use Throwable;
 
 class PuzzlesGeneralMongoCollection
 {
-    private const MONGO_COLLECTION_NAME = 'puzzles_general';
+    private const MONGO_COLLECTION_NAME = Puzzles::ALL->value;
 
+    /**
+     * @return \App\Services\DTOs\PuzzleData[];
+     */
     public function getPuzzles(): array
     {
         try {
-            $data = DB::table(self::MONGO_COLLECTION_NAME)
-                       ->select('*')
+            return DB::table(self::MONGO_COLLECTION_NAME)
+                       ->select(['key', 'name'])
                        ->get()
+                       ->fillWithDto(self::MONGO_COLLECTION_NAME)
                        ->toArray();
-
-            return filter_mongo_id($data);
         } catch(Throwable $e) {
             Log::error($e->getMessage());
             return [];

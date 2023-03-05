@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use App\Services\PuzzlesGeneralService;
+use App\Services\Enums\FlexibleConfigs;
 
 
 class HandleInertiaRequests extends Middleware
@@ -30,11 +33,8 @@ class HandleInertiaRequests extends Middleware
     }
 
     /**
-     * Defines the props that are shared by default.
-     *
-     * @see https://inertiajs.com/shared-data
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
+     * default properties of the props:[], that are always present in the server response
+     * @return array{puzzles:\App\Services\DTOs\PuzzleData{url:string}[],flexibleConfigIndexUrl:string,errors:callable}
      */
     public function share(Request $request): array
     {
@@ -42,6 +42,7 @@ class HandleInertiaRequests extends Middleware
         
         return array_merge(parent::share($request), [
             'puzzles' => $puzzlesGeneralService->getGeneralPuzzlesInfo(),
+            'flexibleConfigIndexUrl' => route(FlexibleConfigs::ALL->value . '.index'),
         ]);
     }
 }
