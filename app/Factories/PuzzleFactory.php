@@ -13,9 +13,9 @@ class PuzzleFactory extends AbstractServiceFactory
     public static function createDto(object|array $data): DataInterface 
     {
         return match(true) {
-            $data instanceof Request      => PuzzleData::fromRequest($data), 
-            gettype($data) === 'object'   => PuzzleData::fromObject($data), 
-            default                       => PuzzleData::fromArray($data),
+            $data instanceof Request   => PuzzleData::fromRequest($data), 
+            is_object($data)           => PuzzleData::fromObject($data), 
+            default                    => PuzzleData::fromArray($data),
         };
     }
 }

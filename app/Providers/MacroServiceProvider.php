@@ -45,7 +45,7 @@ class MacroServiceProvider extends ServiceProvider
         Collection::macro('fromJson', function(string $column): Collection {
 
             return $this->map(
-                /** @property array{column:JsonString} $record */
+                /** @property array<column:JsonString> $record */
                 function(array $record) use($column): array {
                     $record[$column] = isset($record[$column]) ? @json_decode($record[$column]) : new stdClass();
                     return $record;

@@ -6,10 +6,12 @@ namespace App\Http\Controllers;
 
 use App\Services\Enums\FlexibleConfigs;
 use App\Services\FlexibleConfigService;
-use App\Services\PuzzlesGeneralService;
-use Illuminate\Http\Request;
+use App\Http\Requests\FlexibleConfigRequest;
+use Illuminate\Http\JsonResponse;
 use Inertia\Response as InertiaResponse;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Log;
+use Throwable;
 
 class FlexibleConfigController extends Controller
 {
@@ -21,13 +23,13 @@ class FlexibleConfigController extends Controller
      * default properties of the props:[] see in HandleInertiaRequest share() method
      * @return \Inertia\Response{
      *              component:string,
-     *              props:array{
+     *              props:array<
      *                  flexibleConfigUpdateUrl:  string,
      *                  flexible_config:          \App\Services\DTOs\FlexibleConfig\FlexibleConfigData,
-     *              },
+     *              >,
      *         }
      */
-    public function index(PuzzlesGeneralService $puzzlesGeneralService): InertiaResponse 
+    public function index(): InertiaResponse 
     {
         [$componentPath, $componentName] = get_component_path(FlexibleConfigs::ALL->value, __FUNCTION__);
 
@@ -37,8 +39,18 @@ class FlexibleConfigController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    /**
+     * @var array<common_config:array<logging:array<server_side:bool>>> $requestData
+     * @return JsonResponse{array<success:bool>,?int}
+     */
+    public function update(FlexibleConfigRequest $request): JsonResponse
     {
-        $request->input();
+        try {
+            $this->flexibleConfigService->updateCommonSection($request->getFilledDto()->getCommonConfig());
+            return response()->json(['success' => true]);
+        } catch (Throwable $exception) {
+            Log::error($exception->getMessage());
+            return response()->json(['success' => false], 500);
+        }
     }
 }

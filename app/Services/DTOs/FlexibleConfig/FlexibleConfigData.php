@@ -21,8 +21,8 @@ class FlexibleConfigData extends AbstractData
         return [
             FlexibleConfigs::COMMON_SECTION->value => [
                 fn($attribute, $value, $fail) =>
-                    is_nested_object_valid($value, [FlexibleConfigs::LOGGING->value]) 
-                        ?: $fail("The $attribute is invalid"),
+                    is_nested_object_valid((object)$value, [FlexibleConfigs::LOGGING->value]) 
+                        ?: $fail("The $attribute in DTO is invalid"),
             ],
         ];
     }
@@ -30,10 +30,10 @@ class FlexibleConfigData extends AbstractData
     protected function map(array $data): bool 
     {
         try {
-            $this->common_config = $data[FlexibleConfigs::COMMON_SECTION->value];
+            $this->common_config = CommonConfigData::fromArray((array)$data[FlexibleConfigs::COMMON_SECTION->value]);
             return true;
-        } catch (Throwable $e) {
-            Log::error($e->getMessage());
+        } catch (Throwable $exception) {
+            Log::error($exception->getMessage());
             return false;
         }
     }
@@ -43,7 +43,7 @@ class FlexibleConfigData extends AbstractData
         return new static(
             [
                 FlexibleConfigs::COMMON_SECTION->value 
-                    => CommonConfigData::fromObject($data->{FlexibleConfigs::COMMON_SECTION->value}),
+                    => $data->{FlexibleConfigs::COMMON_SECTION->value},
             ]
         );
     }
@@ -53,7 +53,7 @@ class FlexibleConfigData extends AbstractData
         return new static(
             [
                 FlexibleConfigs::COMMON_SECTION->value 
-                    => CommonConfigData::fromObject((object)$request->get(FlexibleConfigs::COMMON_SECTION->value)),
+                    => $request->get(FlexibleConfigs::COMMON_SECTION->value),
             ]
         );
     }
@@ -63,7 +63,7 @@ class FlexibleConfigData extends AbstractData
         return new static(
             [
                 FlexibleConfigs::COMMON_SECTION->value 
-                    => CommonConfigData::fromArray((array)$data[FlexibleConfigs::COMMON_SECTION->value]),
+                    => $data[FlexibleConfigs::COMMON_SECTION->value],
             ]
         );
     } 

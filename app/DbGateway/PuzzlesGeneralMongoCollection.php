@@ -24,8 +24,8 @@ class PuzzlesGeneralMongoCollection
                        ->get()
                        ->fillWithDto(self::MONGO_COLLECTION_NAME)
                        ->toArray();
-        } catch(Throwable $e) {
-            Log::error($e->getMessage());
+        } catch(Throwable $exception) {
+            Log::error($exception->getMessage());
             return [];
         }
     }
