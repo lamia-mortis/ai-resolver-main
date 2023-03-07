@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 if (! function_exists('get_component_path')) {
     
-    /** @return array{string,string} */
+    /** @return array<string,string> */
     function get_component_path(string $componentKey, string $requestType): array
     {
         $delimiter = strpos($componentKey, '-') === false ? '_' : '-';

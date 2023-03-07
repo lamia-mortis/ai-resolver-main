@@ -13,11 +13,11 @@ use Throwable;
 
 abstract class AbstractData implements DataInterface 
 {
-
     /**
+     * @property array<string:mix>
      * @throws InvalidArgumentException
      */
-    public function __construct(array $data) 
+    protected function __construct(array $data)
     {
         try {
             if ($this->isValidData($data)) {
@@ -25,8 +25,8 @@ abstract class AbstractData implements DataInterface
                     throw new InvalidArgumentException('The mapping failed');
                 } 
             };
-        } catch (Throwable $e) {
-            Log::error($e->getMessage());
+        } catch (Throwable $exception) {
+            Log::error($exception->getMessage());
         }
     }
 
@@ -43,6 +43,7 @@ abstract class AbstractData implements DataInterface
     abstract public function toArray(): array;
 
     /**
+     * @property array<string:mix>
      * @throws ValidationException
      */
     protected function isValidData(array $data): bool 

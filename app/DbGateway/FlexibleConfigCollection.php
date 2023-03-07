@@ -4,25 +4,29 @@ declare(strict_types=1);
 
 namespace App\DbGateway; 
 
+use App\Services\DTOs\FlexibleConfig\CommonConfigData;
 use Illuminate\Support\Facades\DB; 
-use Illuminate\Support\Facades\Log;
-use App\Services\Enums\FlexibleConfigs;
 use App\Services\DTOs\FlexibleConfig\FlexibleConfigData;
+use App\Services\Enums\FlexibleConfigs;
+use Illuminate\Support\Facades\Log;
 use Throwable;
 
 class FlexibleConfigCollection 
 {
     private const MONGO_COLLECTION_NAME = FlexibleConfigs::ALL->value; 
 
-    public function updateCommonSection(array $newSectionSettings): bool 
+    /** 
+     * @param array<string:JsonString> 
+     */
+    public function updateCommonSection(array $newCommonConfig): bool 
     {
         try {
             DB::table(self::MONGO_COLLECTION_NAME)
-                ->updateOrInsert([], $newSectionSettings);
+                ->updateOrInsert([], $newCommonConfig);
 
             return true;    
-        } catch(Throwable $e) {
-            Log::error($e->getMessage());
+        } catch(Throwable $exception) {
+            Log::error($exception->getMessage());
             return false;
         }
     }
@@ -37,8 +41,8 @@ class FlexibleConfigCollection
                        ->fromJson(FlexibleConfigs::COMMON_SECTION->value)
                        ->fillWithDto(self::MONGO_COLLECTION_NAME)
                        ->first();            
-        } catch(Throwable $e) {
-            Log::error($e->getMessage());
+        } catch(Throwable $exception) {
+            Log::error($exception->getMessage());
             return [];
         }
     }

@@ -34,8 +34,8 @@ class PuzzleData extends AbstractData
             $this->key = $data['key'];
             $this->name = $data['name'];
             return true;
-        } catch (Throwable $e) {
-            Log::error($e->getMessage());
+        } catch (Throwable $exception) {
+            Log::error($exception->getMessage());
             return false;
         }
     }
@@ -87,8 +87,8 @@ class PuzzleData extends AbstractData
         try {
             $this->url = route("$this->key.index");
             return $this;
-        } catch(Throwable $e) {
-            Log::error($e->getMessage());
+        } catch(Throwable $exception) {
+            Log::error($exception->getMessage());
             return new stdClass();
         } 
     }

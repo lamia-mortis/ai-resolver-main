@@ -28,8 +28,8 @@ class LoggingData extends AbstractData
         try {
             $this->server_side = $data[FlexibleConfigs::SERVER_SIDE->value];
             return true;
-        } catch (Throwable $e) {
-            Log::error($e->getMessage());
+        } catch (Throwable $exception) {
+            Log::error($exception->getMessage());
             return false;
         }
     }

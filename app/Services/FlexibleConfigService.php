@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Services; 
 
+use App\Services\DTOs\FlexibleConfig\CommonConfigData;
 use App\DbGateway\FlexibleConfigCollection; 
-use App\Services\Enums\FlexibleConfigs;
 use App\Services\DTOs\FlexibleConfig\FlexibleConfigData;
+use App\Services\Enums\FlexibleConfigs;
 
 class FlexibleConfigService 
 {
@@ -14,13 +15,11 @@ class FlexibleConfigService
         protected FlexibleConfigCollection $flexibleConfigCollection
     ) {} 
 
-    public function updateCommonSection(array $newSectionSettings): bool 
+    public function updateCommonSection(CommonConfigData $newCommonConfig): bool 
     {
-        return !empty($newSectionSettings) 
-            ? $this->flexibleConfigCollection->updateCommonSection([
-                  FlexibleConfigs::COMMON_SECTION->value => json_encode($newSectionSettings),
-              ])
-            : false;
+        return $this->flexibleConfigCollection->updateCommonSection([
+            FlexibleConfigs::COMMON_SECTION->value => json_encode($newCommonConfig),
+        ]);
     }
 
     public function getAllSections(): FlexibleConfigData 

@@ -13,9 +13,9 @@ class FlexibleConfigFactory extends AbstractServiceFactory
     public static function createDto(object|array $data): DataInterface 
     {
         return match(true) {
-            $data instanceof Request      => FlexibleConfigData::fromRequest($data), 
-            gettype($data) === 'object'   => FlexibleConfigData::fromObject($data), 
-            default                       => FlexibleConfigData::fromArray($data),
+            $data instanceof Request   => FlexibleConfigData::fromRequest($data), 
+            is_object($data)           => FlexibleConfigData::fromObject($data), 
+            default                    => FlexibleConfigData::fromArray($data),
         };
     }
 }

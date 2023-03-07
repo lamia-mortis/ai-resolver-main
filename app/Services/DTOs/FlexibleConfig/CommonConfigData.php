@@ -21,8 +21,8 @@ class CommonConfigData extends AbstractData
         return [
             FlexibleConfigs::LOGGING->value => [
                 fn($attribute, $value, $fail) => 
-                    is_nested_object_valid($value, [FlexibleConfigs::SERVER_SIDE->value]) 
-                        ?: $fail("The $attribute is invalid"),
+                    is_nested_object_valid((object)$value, [FlexibleConfigs::SERVER_SIDE->value]) 
+                        ?: $fail("The $attribute in DTO is invalid"),
             ],
         ];
     }
@@ -30,10 +30,10 @@ class CommonConfigData extends AbstractData
     protected function map(array $data): bool 
     {
         try {
-            $this->logging = $data[FlexibleConfigs::LOGGING->value];
+            $this->logging = LoggingData::fromArray((array)$data[FlexibleConfigs::LOGGING->value]);
             return true;
-        } catch (Throwable $e) {
-            Log::error($e->getMessage());
+        } catch (Throwable $exception) {
+            Log::error($exception->getMessage());
             return false;
         }
     }
@@ -43,7 +43,7 @@ class CommonConfigData extends AbstractData
         return new static(
             [
                 FlexibleConfigs::LOGGING->value 
-                    => LoggingData::fromObject($data->{FlexibleConfigs::LOGGING->value}),
+                    => $data->{FlexibleConfigs::LOGGING->value},
             ]
         );
     }
@@ -53,7 +53,7 @@ class CommonConfigData extends AbstractData
         return new static(
             [
                 FlexibleConfigs::LOGGING->value 
-                    => LoggingData::fromObject((object)$request->get(FlexibleConfigs::LOGGING->value)),
+                    => $request->get(FlexibleConfigs::LOGGING->value),
             ]
         );
     }
@@ -63,7 +63,7 @@ class CommonConfigData extends AbstractData
         return new static(
             [
                 FlexibleConfigs::LOGGING->value 
-                    => LoggingData::fromArray((array)$data[FlexibleConfigs::LOGGING->value]),
+                    => $data[FlexibleConfigs::LOGGING->value],
             ]
         );
     } 

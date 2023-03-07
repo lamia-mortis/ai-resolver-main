@@ -15,7 +15,7 @@ class RubikCubeController extends Controller
 
     /**
      * default properties of the props:[] see in HandleInertiaRequest share() method
-     * @return \Inertia\Response{component:string,props[]}
+     * @return \Inertia\Response{component:string,props:[]}
      */
     public function index(PuzzlesGeneralService $puzzlesGeneralService): InertiaResponse
     {
