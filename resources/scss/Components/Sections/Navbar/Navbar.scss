@@ -1,0 +1,13 @@
+.navbar {
+  background-color: #136d43;
+  display: flex;
+  justify-content: space-around;
+
+  .navbar-container {
+    width: 80%;
+
+    .text-secondary {
+      color: rgb(223, 223, 223) !important;
+    }
+  }
+}

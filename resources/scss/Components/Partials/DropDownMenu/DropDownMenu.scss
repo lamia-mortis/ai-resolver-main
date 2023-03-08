@@ -1,0 +1,31 @@
+#puzzles-navbar-container {
+  width: 150px;
+  position: relative;
+
+  .drop-down-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    background-color: #136d43;
+    padding: 0;
+
+    li {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 4vh;
+      list-style-type: none;
+
+      a {
+        text-decoration: none;
+        color: white;
+      }
+    }
+  }
+
+  li:hover {
+    background-color: #1eac6a;
+  }
+}
