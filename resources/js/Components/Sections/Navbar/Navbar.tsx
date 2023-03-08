@@ -12,9 +12,9 @@ export default function Navbar() {
   const [isDropDownMenuShown, setIsDropDownMenuShown] = useState(false);
 
   return (
-    <div className='navbar-container container'>
-      <div className='d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start'>
-        <ul className='nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small'>
+    <div className='navbar'>
+      <div className='navbar-container'>
+        <ul className='nav col-8 col-lg-auto my-2 justify-content-around d-flex my-md-0 text-small'>
           <li>
             <a
               id='puzzles-navbar-button'
@@ -54,7 +54,7 @@ export default function Navbar() {
             </a>
           </li>
           <li>
-            <a href={flexibleConfigIndexUrlTyped} className='nav-link text-secondary'>
+            <a href={flexibleConfigIndexUrlTyped} className='nav-link text-secondary text-center'>
               Flexible Configuration
             </a>
           </li>

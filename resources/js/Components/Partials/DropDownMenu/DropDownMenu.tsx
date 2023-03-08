@@ -9,12 +9,12 @@ interface IDropDownMenuProps {
 
 export default function DropDownMenu({ data }: IDropDownMenuProps): JSX.Element {
   return (
-    <ul>
+    <ul className='drop-down-menu'>
       {data.map((row, index) => {
         return (
-          <a key={index} href={row.url}>
-            <li>{row.name}</li>
-          </a>
+          <li key={index}>
+            <a href={row.url}>{row.name}</a>
+          </li>
         );
       })}
     </ul>
