@@ -14,7 +14,7 @@ class PuzzlesGeneralMongoCollection
     private const MONGO_COLLECTION_NAME = Puzzles::ALL->value;
 
     /**
-     * @return \App\Services\DTOs\PuzzleData[];
+     * @return array<\App\Services\DTOs\PuzzleData>;
      */
     public function getPuzzles(): array
     {

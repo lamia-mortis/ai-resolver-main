@@ -25,7 +25,7 @@ class FlexibleConfigController extends Controller
      *              component:string,
      *              props:array<
      *                  flexibleConfigUpdateUrl:  string,
-     *                  flexible_config:          \App\Services\DTOs\FlexibleConfig\FlexibleConfigData,
+     *                  flexible_config:          \App\Services\DTOs\FlexibleConfig\FlexibleConfigData|stdClass{},
      *              >,
      *         }
      */
@@ -46,8 +46,8 @@ class FlexibleConfigController extends Controller
     public function update(FlexibleConfigRequest $request): JsonResponse
     {
         try {
-            $this->flexibleConfigService->updateCommonSection($request->getFilledDto()->getCommonConfig());
-            return response()->json(['success' => true]);
+            $isSuccess = $this->flexibleConfigService->updateCommonSection($request->getFilledDto()->getCommonConfig());
+            return response()->json(['success' => $isSuccess]);
         } catch (Throwable $exception) {
             Log::error($exception->getMessage());
             return response()->json(['success' => false], 500);

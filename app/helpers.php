@@ -23,3 +23,14 @@ if (! function_exists('is_nested_object_valid')) {
         );
     }
 }
+
+/** 
+ *  if executed outside the object 
+ *  then only public and non-static properties and methods will be checked
+ */
+if (! function_exists('is_object_empty')) {
+    function is_object_empty(object $object): bool
+    {
+        return empty(get_object_vars($object)) && empty(get_class_methods($object));
+    }
+}

@@ -8,6 +8,7 @@ use App\Services\DTOs\FlexibleConfig\CommonConfigData;
 use App\DbGateway\FlexibleConfigCollection; 
 use App\Services\DTOs\FlexibleConfig\FlexibleConfigData;
 use App\Services\Enums\FlexibleConfigs;
+use stdClass;
 
 class FlexibleConfigService 
 {
@@ -22,7 +23,7 @@ class FlexibleConfigService
         ]);
     }
 
-    public function getAllSections(): FlexibleConfigData 
+    public function getAllSections(): FlexibleConfigData|stdClass
     {
         return $this->flexibleConfigCollection->getAllSections();
     }

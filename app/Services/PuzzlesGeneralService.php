@@ -13,7 +13,7 @@ class PuzzlesGeneralService
     ){}
 
     /**
-     * @return \App\Services\DTOs\PuzzleData[];
+     * @return array<\App\Services\DTOs\PuzzleData>;
      */
     public function getGeneralPuzzlesInfo(): array
     {
