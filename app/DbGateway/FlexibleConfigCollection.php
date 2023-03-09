@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Services\DTOs\FlexibleConfig\FlexibleConfigData;
 use App\Services\Enums\FlexibleConfigs;
 use Illuminate\Support\Facades\Log;
+use stdClass;
 use Throwable;
 
 class FlexibleConfigCollection 
@@ -31,7 +32,7 @@ class FlexibleConfigCollection
         }
     }
 
-    public function getAllSections(): FlexibleConfigData
+    public function getAllSections(): FlexibleConfigData|stdClass
     {
         try{
             return DB::table(self::MONGO_COLLECTION_NAME)
@@ -43,7 +44,7 @@ class FlexibleConfigCollection
                        ->first();            
         } catch(Throwable $exception) {
             Log::error($exception->getMessage());
-            return [];
+            return new stdClass();
         }
     }
 }

@@ -34,12 +34,12 @@ class HandleInertiaRequests extends Middleware
 
     /**
      * default properties of the props:[], that are always present in the server response
-     * @return array{puzzles:\App\Services\DTOs\PuzzleData{url:string}[],flexibleConfigIndexUrl:string,errors:callable}
+     * @return array<puzzles:array<\App\Services\DTOs\PuzzleData{url:string}>,flexibleConfigIndexUrl:string,errors:callable>
      */
     public function share(Request $request): array
     {
         $puzzles = app(PuzzlesGeneralService::class)->getGeneralPuzzlesInfo();
-        array_filter($puzzles, static fn($puzzle) => $puzzle instanceof stdClass ? false: $puzzle->getWithUrl());
+        array_filter($puzzles, static fn($puzzle) => $puzzle instanceof stdClass ? false : $puzzle->getWithUrl());
 
         return array_merge(parent::share($request), [
             'puzzles' => $puzzles,

@@ -14,8 +14,8 @@ class RubikCubeController extends Controller
     private const PUZZLE_KEY = Puzzles::RUBIK_CUBE->value;
 
     /**
-     * default properties of the props:[] see in HandleInertiaRequest share() method
-     * @return \Inertia\Response{component:string,props:[]}
+     * default properties of the props:array see in HandleInertiaRequest share() method
+     * @return \Inertia\Response{component:string,props:array}
      */
     public function index(PuzzlesGeneralService $puzzlesGeneralService): InertiaResponse
     {
