@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Throwable;
 
-class CommonConfigData extends AbstractData 
+class SharedFlexibleConfigData extends AbstractData 
 {
     /* default DTO properties, that are always returned */
     public readonly LoggingData $logging;
@@ -20,17 +20,22 @@ class CommonConfigData extends AbstractData
     {
         return [
             FlexibleConfigs::LOGGING->value => [
-                static fn($attribute, $value, $fail) => 
-                    is_nested_object_valid((object)$value, [FlexibleConfigs::SERVER_SIDE->value]) 
-                        ?: $fail("The $attribute in DTO is invalid"),
+                'required',
+                static function($attribute, $value, $fail) {
+                    is_object($value) && $value instanceof LoggingData 
+                        ?: $fail("The $attribute in DTO is not the required object");
+
+                    is_nested_object_valid($value, [FlexibleConfigs::SERVER_SIDE->value]) 
+                        ?: $fail("The $attribute in DTO has invalid inner structure");
+                },
             ],
         ];
     }
-    
+
     protected function map(array $data): bool 
     {
         try {
-            $this->logging = LoggingData::fromArray((array)$data[FlexibleConfigs::LOGGING->value]);
+            $this->logging = $data[FlexibleConfigs::LOGGING->value];
             return true;
         } catch (Throwable $exception) {
             Log::error($exception->getMessage());
@@ -75,8 +80,4 @@ class CommonConfigData extends AbstractData
         ];
     }
 
-    public function getLogging(): LoggingData 
-    {
-        return $this->logging;
-    }
 }

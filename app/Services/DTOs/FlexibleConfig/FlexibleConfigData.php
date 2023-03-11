@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Services\DTOs\FlexibleConfig; 
 
 use App\Services\DTOs\AbstractData; 
-use App\Services\Enums\FlexibleConfigs; 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use App\Services\DTOs\DataInterface;
+use App\Services\Enums\FlexibleConfigs; 
+use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 use Throwable;
 
 class FlexibleConfigData extends AbstractData 
@@ -20,7 +20,7 @@ class FlexibleConfigData extends AbstractData
     {
         return [
             FlexibleConfigs::COMMON_SECTION->value => [
-                fn($attribute, $value, $fail) =>
+                static fn($attribute, $value, $fail) =>
                     is_nested_object_valid((object)$value, [FlexibleConfigs::LOGGING->value]) 
                         ?: $fail("The $attribute in DTO is invalid"),
             ],
@@ -71,12 +71,21 @@ class FlexibleConfigData extends AbstractData
     public function toArray(): array 
     {
         return [
-            FlexibleConfigs::COMMON_SECTION->value => $this->common_config,
+            FlexibleConfigs::COMMON_SECTION->value => $this->common_config->toArray(),
         ];
     }
 
     public function getCommonConfig(): CommonConfigData 
     {
         return $this->common_config;
+    }
+
+    public function getSharedParameters(): SharedFlexibleConfigData 
+    {
+        return SharedFlexibleConfigData::fromArray(
+            [
+                'logging' => $this->getCommonConfig()->getLogging(),
+            ]
+        );
     }
 }

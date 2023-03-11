@@ -34,8 +34,8 @@ class FlexibleConfigController extends Controller
         [$componentPath, $componentName] = get_component_path(FlexibleConfigs::ALL->value, __FUNCTION__);
 
         return Inertia::render("$componentPath/$componentName", [
-            FlexibleConfigs::ALL->value => $this->flexibleConfigService->getAllSections(), 
             'flexibleConfigUpdateUrl'   => route(FlexibleConfigs::ALL->value . '.update'),
+            FlexibleConfigs::ALL->value => $this->flexibleConfigService->getAllSections(), 
         ]);
     }
 
@@ -50,6 +50,7 @@ class FlexibleConfigController extends Controller
             return response()->json(['success' => $isSuccess]);
         } catch (Throwable $exception) {
             Log::error($exception->getMessage());
+            //TODO add a flash message
             return response()->json(['success' => false], 500);
         }
     }
