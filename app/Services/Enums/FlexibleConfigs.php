@@ -10,5 +10,6 @@ enum FlexibleConfigs: string
     case LOGGING = 'logging';
     case SERVER_SIDE = 'server_side';
 
+    case SHARED_FLEXIBLE_CONFIG = 'shared_flexible_config';
     case ALL = 'flexible_config';
 }

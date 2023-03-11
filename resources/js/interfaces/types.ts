@@ -20,7 +20,13 @@ export interface ILoggingData {
   server_side: boolean;
 }
 
+export interface ISharedFlexibleConfigData {
+  logging: ILoggingData;
+}
+
 export interface ISharedData extends Page<PageProps> {
-  puzzles: Array<IDropDownMenuData>;
   flexibleConfigIndexUrl: string;
+  puzzles: Array<IDropDownMenuData>;
+  saveLogsUrl: string;
+  shared_flexible_config: ISharedFlexibleConfigData;
 }

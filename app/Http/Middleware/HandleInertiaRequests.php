@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Inertia\Middleware;
 use App\Services\PuzzlesGeneralService;
 use App\Services\Enums\FlexibleConfigs;
-use stdClass;
+use App\Services\FlexibleConfigService;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -34,16 +34,25 @@ class HandleInertiaRequests extends Middleware
 
     /**
      * default properties of the props:[], that are always present in the server response
-     * @return array<puzzles:array<\App\Services\DTOs\PuzzleData{url:string}>,flexibleConfigIndexUrl:string,errors:callable>
+     * @return array<
+     *             flexibleConfigIndexUrl:   string,
+     *             puzzles:                  array<\App\Services\DTOs\PuzzleData{url:string}>,
+     *             saveLogsUrl:              string,
+     *             shared_flexible_config:   \App\Services\DTOs\FlexibleConfig\SharedFlexibleConfigData,
+     *             errors:                   callable,
+     *         >
      */
     public function share(Request $request): array
     {
         $puzzles = app(PuzzlesGeneralService::class)->getGeneralPuzzlesInfo();
-        array_filter($puzzles, static fn($puzzle) => $puzzle instanceof stdClass ? false : $puzzle->getWithUrl());
+        $sharedFlexibleConfig = app(FlexibleConfigService::class)->getAllSections()->getSharedParameters();
+        array_filter($puzzles, static fn($puzzle) => is_object_empty($puzzle) ? false : $puzzle->getWithUrl());
 
         return array_merge(parent::share($request), [
-            'puzzles' => $puzzles,
-            'flexibleConfigIndexUrl' => route(FlexibleConfigs::ALL->value . '.index'),
+            'flexibleConfigIndexUrl'                        => route(FlexibleConfigs::ALL->value . '.index'),
+            'puzzles'                                       => $puzzles,
+            'saveLogsUrl'                                   => route('app-state.save-logs'),
+            FlexibleConfigs::SHARED_FLEXIBLE_CONFIG->value  => $sharedFlexibleConfig,
         ]);
     }
 }

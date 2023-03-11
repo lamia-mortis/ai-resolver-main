@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\AppStateController;
 use App\Services\Enums\FlexibleConfigs;
 use App\Http\Controllers\RubikCubeController; 
 use App\Http\Controllers\SudokuController; 
@@ -30,4 +31,8 @@ Route::prefix("/$sudoku")->group(static function() use($sudoku) {
 Route::prefix("/$flexibleConfig")->group(static function() use($flexibleConfig) {
     Route::get('/',[FlexibleConfigController::class, 'index'])->name("$flexibleConfig.index"); 
     Route::put('/update', [FlexibleConfigController::class, 'update'])->name("$flexibleConfig.update");
+});
+
+Route::prefix('/app-state')->group(static function() {
+    Route::post('/save-logs', [AppStateController::class, 'saveLogs'])->name('app-state.save-logs');
 });

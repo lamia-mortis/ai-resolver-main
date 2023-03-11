@@ -70,4 +70,9 @@ class LoggingData extends AbstractData
             FlexibleConfigs::SERVER_SIDE->value => $this->server_side,
         ];
     }
+
+    public function getServerSide(): bool 
+    {
+        return $this->server_side;
+    }
 }
