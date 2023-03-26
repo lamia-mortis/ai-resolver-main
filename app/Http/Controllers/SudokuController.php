@@ -3,13 +3,12 @@
 declare(strict_types=1);
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request; 
+ 
+use Inertia\Inertia;
 use Inertia\Response as InertiaResponse;
-use App\Services\PuzzlesGeneralService;
 use Illuminate\Http\JsonResponse; 
 use App\Services\Enums\Puzzles; 
-use Inertia\Inertia;
+use App\Http\Requests\SudokuRequest;
 
 class SudokuController extends Controller
 {
@@ -25,8 +24,12 @@ class SudokuController extends Controller
         return Inertia::render("$componentPath/$componentName");
     }
 
-    public function solve(Request $request): JsonResponse
+    /**
+     * @param array<board:array<array<int>>,squareSize:int>
+     */
+    public function solve(SudokuRequest $request): JsonResponse
     {
+        $request->getFilledDto();
         return response()->json(['success' => true, 201]);
     }
 }

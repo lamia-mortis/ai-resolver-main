@@ -1,8 +1,8 @@
 {
-    "name": "lamia-mortis/ai-resolver",
+    "name": "lamia-mortis/ai-resolver-main",
     "type": "project",
     "description": "Artificial Intelligence for the puzzle resolving",
-    "keywords": ["framework", "laravel, ai"],
+    "keywords": ["framework", "laravel", "ai"],
     "license": "MIT",
     "require": {
         "php": "^8.2.1",
