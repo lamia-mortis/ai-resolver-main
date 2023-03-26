@@ -16,6 +16,7 @@ abstract class AbstractData implements DataInterface
     /**
      * @property array<string:mix>
      * @throws InvalidArgumentException
+     * @throws ValidationException
      */
     protected function __construct(array $data)
     {
@@ -27,6 +28,7 @@ abstract class AbstractData implements DataInterface
             };
         } catch (Throwable $exception) {
             Log::error($exception->getMessage());
+            throw $exception;
         }
     }
 
