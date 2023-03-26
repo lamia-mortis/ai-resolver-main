@@ -11,6 +11,8 @@ use Throwable;
 class SudokuData extends AbstractData
 {
     /* default DTO properties, that are always returned */
+    
+    /** @var array<array<int>> $board */
     public readonly array $board;
     public readonly int   $squareSize;
 
@@ -84,8 +86,8 @@ class SudokuData extends AbstractData
     public function toArray(): array
     {
         return [
-            'board' => $this->board, 
-            'squareSize' => $this->squareSize,
+            'board'          => $this->board, 
+            'squareSize'     => $this->squareSize,
         ];
     }
 }

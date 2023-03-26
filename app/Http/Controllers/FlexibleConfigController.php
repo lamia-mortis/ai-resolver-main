@@ -50,7 +50,6 @@ class FlexibleConfigController extends Controller
             return response()->json(['success' => $isSuccess]);
         } catch (Throwable $exception) {
             Log::error($exception->getMessage());
-            //TODO add a flash message
             return response()->json(['success' => false], 500);
         }
     }
