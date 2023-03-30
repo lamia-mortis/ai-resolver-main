@@ -36,16 +36,16 @@ class SudokuController extends Controller
 
     /**
      * @param array<board:array<array<int>>,squareSize:int> $request
-     * @return array<success:bool,data:SudokuData|stdClass>
+     * @return array<success:bool,sudokuData:SudokuData|stdClass>
      */
     public function solve(SudokuRequest $request): JsonResponse
     {
         try {
             $solved = $this->sudokuService->solve($request->getFilledDto());
-            return response()->json(['success' => true, 'data' => $solved]);
+            return response()->json(['success' => true,  'sudokuData' => $solved]);
         } catch (Throwable $exception) {
             Log::error($exception->getMessage());
-            return response()->json(['success' => false, 'data' => new stdClass()], 500);
+            return response()->json(['success' => false, 'sudokuData' => new stdClass()], 500);
         }
     }
 }
