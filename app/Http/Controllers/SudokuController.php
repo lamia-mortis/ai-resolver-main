@@ -42,10 +42,10 @@ class SudokuController extends Controller
     {
         try {
             $solved = $this->sudokuService->solve($request->getFilledDto());
-            return response()->json(['success' => true,  'sudokuData' => $solved]);
+            return response()->json(['success' => true,  self::PUZZLE_KEY => $solved]);
         } catch (Throwable $exception) {
             Log::error($exception->getMessage());
-            return response()->json(['success' => false, 'sudokuData' => new stdClass()], 500);
+            return response()->json(['success' => false, self::PUZZLE_KEY => new stdClass()], 500);
         }
     }
 }
