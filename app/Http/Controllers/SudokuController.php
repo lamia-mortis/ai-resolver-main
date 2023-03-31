@@ -16,8 +16,6 @@ use Throwable;
 
 class SudokuController extends Controller
 {
-    private const PUZZLE_KEY = Puzzles::SUDOKU->value;
-
     public function __construct(
         protected SudokuService $sudokuService
     ) {}
@@ -28,24 +26,24 @@ class SudokuController extends Controller
      */
     public function index(): InertiaResponse
     {
-        [$componentPath, $componentName] = get_component_path(self::PUZZLE_KEY, __FUNCTION__);
+        [$componentPath, $componentName] = get_component_path(Puzzles::sudoku(), __FUNCTION__);
         return Inertia::render("$componentPath/$componentName", [
-            'sudokuSolveUrl' => route(self::PUZZLE_KEY . ".solve"),
+            'sudokuSolveUrl' => route(Puzzles::sudoku() . ".solve"),
         ]);
     }
 
     /**
      * @param array<board:array<array<int>>,squareSize:int> $request
-     * @return array<success:bool,sudokuData:SudokuData|stdClass>
+     * @return array<success:bool,sudoku:SudokuData|stdClass>
      */
     public function solve(SudokuRequest $request): JsonResponse
     {
         try {
             $solved = $this->sudokuService->solve($request->getFilledDto());
-            return response()->json(['success' => true,  self::PUZZLE_KEY => $solved]);
+            return response()->json(['success' => true,  Puzzles::sudoku() => $solved]);
         } catch (Throwable $exception) {
             Log::error($exception->getMessage());
-            return response()->json(['success' => false, self::PUZZLE_KEY => new stdClass()], 500);
+            return response()->json(['success' => false, Puzzles::sudoku() => new stdClass()], 500);
         }
     }
 }

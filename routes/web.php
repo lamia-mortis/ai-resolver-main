@@ -11,9 +11,9 @@ use App\Services\Enums\Puzzles;
 use App\Http\Controllers\FlexibleConfigController;
 
 // routes names
-$rubikCube = Puzzles::RUBIK_CUBE->value; 
-$sudoku = Puzzles::SUDOKU->value; 
-$flexibleConfig = FlexibleConfigs::ALL->value;
+$rubikCube       = Puzzles::rubikCube(); 
+$sudoku          = Puzzles::sudoku(); 
+$flexibleConfig  = FlexibleConfigs::all();
 
 Route::get('/', static function () use($rubikCube) {
     return redirect(route("$rubikCube.index"));

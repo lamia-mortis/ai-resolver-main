@@ -19,14 +19,14 @@ class LoggingData extends AbstractData
     protected function validationRules(): array
     {
         return [
-            FlexibleConfigs::SERVER_SIDE->value => ['boolean'],
+            FlexibleConfigs::serverSide() => ['boolean'],
         ];
     }
     
     protected function map(array $data): bool 
     {
         try {
-            $this->server_side = $data[FlexibleConfigs::SERVER_SIDE->value];
+            $this->server_side = $data[FlexibleConfigs::serverSide()];
             return true;
         } catch (Throwable $exception) {
             Log::error($exception->getMessage());
@@ -38,8 +38,8 @@ class LoggingData extends AbstractData
     {
         return new static(
             [
-                FlexibleConfigs::SERVER_SIDE->value 
-                    => $data->{FlexibleConfigs::SERVER_SIDE->value},
+                FlexibleConfigs::serverSide() 
+                    => $data->{FlexibleConfigs::serverSide()},
             ]
         );
     }
@@ -48,8 +48,8 @@ class LoggingData extends AbstractData
     {
         return new static(
             [
-                FlexibleConfigs::SERVER_SIDE->value 
-                    => $request->get(FlexibleConfigs::SERVER_SIDE->value),
+                FlexibleConfigs::serverSide() 
+                    => $request->get(FlexibleConfigs::serverSide()),
             ]
         );
     }
@@ -58,8 +58,8 @@ class LoggingData extends AbstractData
     {
         return new static(
             [
-                FlexibleConfigs::SERVER_SIDE->value 
-                    => $data[FlexibleConfigs::SERVER_SIDE->value],
+                FlexibleConfigs::serverSide() 
+                    => $data[FlexibleConfigs::serverSide()],
             ]
         );
     } 
@@ -67,7 +67,7 @@ class LoggingData extends AbstractData
     public function toArray(): array 
     {
         return [
-            FlexibleConfigs::SERVER_SIDE->value => $this->server_side,
+            FlexibleConfigs::serverSide() => $this->server_side,
         ];
     }
 

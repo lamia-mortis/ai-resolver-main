@@ -8,11 +8,9 @@ use App\Services\Enums\MicroServices;
 
 class MindMsApi extends AbstractApi 
 {
-    public const SERVICE_KEY = MicroServices::MIND->value;
-
-    protected static function createOrigin() :string 
+    protected static function createOrigin(): string 
     {
-        $mindMsUrlConfig = config('services')[self::SERVICE_KEY]['url'];
+        $mindMsUrlConfig = config('services')[MicroServices::mind()]['url'];
         return $mindMsUrlConfig['protocol'] . '://' 
              . $mindMsUrlConfig['host']  . ':'
              . $mindMsUrlConfig['port'];

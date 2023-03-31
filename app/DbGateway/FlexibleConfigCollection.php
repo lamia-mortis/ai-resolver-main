@@ -14,15 +14,13 @@ use Throwable;
 
 class FlexibleConfigCollection 
 {
-    private const MONGO_COLLECTION_NAME = FlexibleConfigs::ALL->value; 
-
     /** 
      * @param array<string:JsonString> 
      */
     public function updateCommonSection(array $newCommonConfig): bool 
     {
         try {
-            DB::table(self::MONGO_COLLECTION_NAME)
+            DB::table(FlexibleConfigs::all())
                 ->updateOrInsert([], $newCommonConfig);
 
             return true;    
@@ -35,12 +33,12 @@ class FlexibleConfigCollection
     public function getAllSections(): FlexibleConfigData|stdClass
     {
         try{
-            return DB::table(self::MONGO_COLLECTION_NAME)
+            return DB::table(FlexibleConfigs::all())
                        ->select('*')
                        ->limit(1)
                        ->get()
-                       ->fromJson(FlexibleConfigs::COMMON_SECTION->value)
-                       ->fillWithDto(self::MONGO_COLLECTION_NAME)
+                       ->fromJson(FlexibleConfigs::common())
+                       ->fillWithDto(FlexibleConfigs::all())
                        ->first();            
         } catch(Throwable $exception) {
             Log::error($exception->getMessage());

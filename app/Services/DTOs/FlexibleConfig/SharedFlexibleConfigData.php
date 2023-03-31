@@ -19,13 +19,13 @@ class SharedFlexibleConfigData extends AbstractData
     protected function validationRules(): array
     {
         return [
-            FlexibleConfigs::LOGGING->value => [
+            FlexibleConfigs::logging() => [
                 'required',
                 static function($attribute, $value, $fail) {
                     is_object($value) && $value instanceof LoggingData 
                         ?: $fail("The $attribute in DTO is not the required object");
 
-                    is_nested_object_valid($value, [FlexibleConfigs::SERVER_SIDE->value]) 
+                    is_nested_object_valid($value, [FlexibleConfigs::serverSide()]) 
                         ?: $fail("The $attribute in DTO has invalid inner structure");
                 },
             ],
@@ -35,7 +35,7 @@ class SharedFlexibleConfigData extends AbstractData
     protected function map(array $data): bool 
     {
         try {
-            $this->logging = $data[FlexibleConfigs::LOGGING->value];
+            $this->logging = $data[FlexibleConfigs::logging()];
             return true;
         } catch (Throwable $exception) {
             Log::error($exception->getMessage());
@@ -47,8 +47,8 @@ class SharedFlexibleConfigData extends AbstractData
     {
         return new static(
             [
-                FlexibleConfigs::LOGGING->value 
-                    => $data->{FlexibleConfigs::LOGGING->value},
+                FlexibleConfigs::logging() 
+                    => $data->{FlexibleConfigs::logging()},
             ]
         );
     }
@@ -57,8 +57,8 @@ class SharedFlexibleConfigData extends AbstractData
     {
         return new static(
             [
-                FlexibleConfigs::LOGGING->value 
-                    => $request->get(FlexibleConfigs::LOGGING->value),
+                FlexibleConfigs::logging() 
+                    => $request->get(FlexibleConfigs::logging()),
             ]
         );
     }
@@ -67,8 +67,8 @@ class SharedFlexibleConfigData extends AbstractData
     {
         return new static(
             [
-                FlexibleConfigs::LOGGING->value 
-                    => $data[FlexibleConfigs::LOGGING->value],
+                FlexibleConfigs::logging() 
+                    => $data[FlexibleConfigs::logging()],
             ]
         );
     } 
@@ -76,7 +76,7 @@ class SharedFlexibleConfigData extends AbstractData
     public function toArray(): array 
     {
         return [
-            FlexibleConfigs::LOGGING->value => $this->logging->toArray(),
+            FlexibleConfigs::logging() => $this->logging->toArray(),
         ];
     }
 

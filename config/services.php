@@ -7,7 +7,7 @@ use App\Services\Enums\MicroServices;
 return [
 
     /** Custom MicroServices */
-    MicroServices::MIND->value => [
+    MicroServices::mind() => [
         'url' => [
             'protocol' => env('MIND_MICROSERVICE_PROTOCOL', 'http'),
             'host'     => env('MIND_MICROSERVICE_HOST', 'ai-resolver.mind-ms'),
@@ -15,7 +15,7 @@ return [
         ],
     ],
 
-    /** Third Party Service */
+    /** Third Party Services */
     'mailgun' => [
         'domain'   => env('MAILGUN_DOMAIN'),
         'secret'   => env('MAILGUN_SECRET'),
