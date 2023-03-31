@@ -19,9 +19,9 @@ class FlexibleConfigData extends AbstractData
     protected function validationRules(): array
     {
         return [
-            FlexibleConfigs::COMMON_SECTION->value => [
+            FlexibleConfigs::common() => [
                 static fn($attribute, $value, $fail) =>
-                    is_nested_object_valid((object)$value, [FlexibleConfigs::LOGGING->value]) 
+                    is_nested_object_valid((object)$value, [FlexibleConfigs::logging()]) 
                         ?: $fail("The $attribute in DTO is invalid"),
             ],
         ];
@@ -30,7 +30,7 @@ class FlexibleConfigData extends AbstractData
     protected function map(array $data): bool 
     {
         try {
-            $this->common_config = CommonConfigData::fromArray((array)$data[FlexibleConfigs::COMMON_SECTION->value]);
+            $this->common_config = CommonConfigData::fromArray((array)$data[FlexibleConfigs::common()]);
             return true;
         } catch (Throwable $exception) {
             Log::error($exception->getMessage());
@@ -42,8 +42,8 @@ class FlexibleConfigData extends AbstractData
     {
         return new static(
             [
-                FlexibleConfigs::COMMON_SECTION->value 
-                    => $data->{FlexibleConfigs::COMMON_SECTION->value},
+                FlexibleConfigs::common() 
+                    => $data->{FlexibleConfigs::common()},
             ]
         );
     }
@@ -52,8 +52,8 @@ class FlexibleConfigData extends AbstractData
     {
         return new static(
             [
-                FlexibleConfigs::COMMON_SECTION->value 
-                    => $request->get(FlexibleConfigs::COMMON_SECTION->value),
+                FlexibleConfigs::common() 
+                    => $request->get(FlexibleConfigs::common()),
             ]
         );
     }
@@ -62,8 +62,8 @@ class FlexibleConfigData extends AbstractData
     {
         return new static(
             [
-                FlexibleConfigs::COMMON_SECTION->value 
-                    => $data[FlexibleConfigs::COMMON_SECTION->value],
+                FlexibleConfigs::common() 
+                    => $data[FlexibleConfigs::common()],
             ]
         );
     } 
@@ -71,7 +71,7 @@ class FlexibleConfigData extends AbstractData
     public function toArray(): array 
     {
         return [
-            FlexibleConfigs::COMMON_SECTION->value => $this->common_config->toArray(),
+            FlexibleConfigs::common() => $this->common_config->toArray(),
         ];
     }
 

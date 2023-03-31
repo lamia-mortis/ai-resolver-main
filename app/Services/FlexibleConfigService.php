@@ -19,7 +19,7 @@ class FlexibleConfigService
     public function updateCommonSection(CommonConfigData $newCommonConfig): bool 
     {
         return $this->flexibleConfigCollection->updateCommonSection([
-            FlexibleConfigs::COMMON_SECTION->value => json_encode($newCommonConfig),
+            FlexibleConfigs::common() => json_encode($newCommonConfig),
         ]);
     }
 

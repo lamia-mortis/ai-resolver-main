@@ -13,8 +13,8 @@ class PuzzleGeneralSeeder extends Seeder
     public function run()
     {
         DB::table('puzzles_general')->insert([
-            ['key' => Puzzles::RUBIK_CUBE->value, 'name' => 'Rubik\'s Cube'], 
-            ['key' => Puzzles::SUDOKU->value, 'name' => 'Sudoku'],
+            ['key' => Puzzles::rubikCube(), 'name' => 'Rubik\'s Cube'], 
+            ['key' => Puzzles::sudoku(),    'name' => 'Sudoku'],
         ]);
     }
 }

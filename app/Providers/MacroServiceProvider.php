@@ -31,10 +31,11 @@ class MacroServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Collection::macro('fillWithDto', function(string $dtoType): Collection {
+        Collection::macro('fillWithDto', function(string $dtoType): Collection 
+        {
             $factory = match($dtoType) {
-                Puzzles::ALL->value => PuzzleFactory::class,
-                FlexibleConfigs::ALL->value => FlexibleConfigFactory::class,
+                Puzzles::all()         => PuzzleFactory::class,
+                FlexibleConfigs::all() => FlexibleConfigFactory::class,
             };
 
             return $this->map(
@@ -42,8 +43,8 @@ class MacroServiceProvider extends ServiceProvider
             );
         });
 
-        Collection::macro('fromJson', function(string $column): Collection {
-
+        Collection::macro('fromJson', function(string $column): Collection 
+        {
             return $this->map(
                 /** @property array<column:JsonString> $record */
                 function(array $record) use($column): array {

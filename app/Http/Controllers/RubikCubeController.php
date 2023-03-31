@@ -11,15 +11,13 @@ use Inertia\Inertia;
 
 class RubikCubeController extends Controller
 {
-    private const PUZZLE_KEY = Puzzles::RUBIK_CUBE->value;
-
     /**
      * default properties of the props:array see in HandleInertiaRequest share() method
      * @return \Inertia\Response{component:string,props:array}
      */
     public function index(): InertiaResponse
     {
-        [$componentPath, $componentName] = get_component_path(self::PUZZLE_KEY, __FUNCTION__);
+        [$componentPath, $componentName] = get_component_path(Puzzles::rubikCube(), __FUNCTION__);
         return Inertia::render("$componentPath/$componentName");
     }
 }

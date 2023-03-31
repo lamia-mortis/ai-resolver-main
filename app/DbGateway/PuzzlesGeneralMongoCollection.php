@@ -11,18 +11,16 @@ use Throwable;
 
 class PuzzlesGeneralMongoCollection
 {
-    private const MONGO_COLLECTION_NAME = Puzzles::ALL->value;
-
     /**
      * @return array<\App\Services\DTOs\PuzzleData>;
      */
     public function getPuzzles(): array
     {
         try {
-            return DB::table(self::MONGO_COLLECTION_NAME)
+            return DB::table(Puzzles::all())
                        ->select(['key', 'name'])
                        ->get()
-                       ->fillWithDto(self::MONGO_COLLECTION_NAME)
+                       ->fillWithDto(Puzzles::all())
                        ->toArray();
         } catch(Throwable $exception) {
             Log::error($exception->getMessage());

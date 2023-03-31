@@ -19,9 +19,9 @@ class CommonConfigData extends AbstractData
     protected function validationRules(): array
     {
         return [
-            FlexibleConfigs::LOGGING->value => [
+            FlexibleConfigs::logging() => [
                 static fn($attribute, $value, $fail) => 
-                    is_nested_object_valid((object)$value, [FlexibleConfigs::SERVER_SIDE->value]) 
+                    is_nested_object_valid((object)$value, [FlexibleConfigs::serverSide()]) 
                         ?: $fail("The $attribute in DTO is invalid"),
             ],
         ];
@@ -30,7 +30,7 @@ class CommonConfigData extends AbstractData
     protected function map(array $data): bool 
     {
         try {
-            $this->logging = LoggingData::fromArray((array)$data[FlexibleConfigs::LOGGING->value]);
+            $this->logging = LoggingData::fromArray((array)$data[FlexibleConfigs::logging()]);
             return true;
         } catch (Throwable $exception) {
             Log::error($exception->getMessage());
@@ -42,8 +42,8 @@ class CommonConfigData extends AbstractData
     {
         return new static(
             [
-                FlexibleConfigs::LOGGING->value 
-                    => $data->{FlexibleConfigs::LOGGING->value},
+                FlexibleConfigs::logging() 
+                    => $data->{FlexibleConfigs::logging()},
             ]
         );
     }
@@ -52,8 +52,8 @@ class CommonConfigData extends AbstractData
     {
         return new static(
             [
-                FlexibleConfigs::LOGGING->value 
-                    => $request->get(FlexibleConfigs::LOGGING->value),
+                FlexibleConfigs::logging() 
+                    => $request->get(FlexibleConfigs::logging()),
             ]
         );
     }
@@ -62,8 +62,8 @@ class CommonConfigData extends AbstractData
     {
         return new static(
             [
-                FlexibleConfigs::LOGGING->value 
-                    => $data[FlexibleConfigs::LOGGING->value],
+                FlexibleConfigs::logging() 
+                    => $data[FlexibleConfigs::logging()],
             ]
         );
     } 
@@ -71,7 +71,7 @@ class CommonConfigData extends AbstractData
     public function toArray(): array 
     {
         return [
-            FlexibleConfigs::LOGGING->value => $this->logging->toArray(),
+            FlexibleConfigs::logging() => $this->logging->toArray(),
         ];
     }
 

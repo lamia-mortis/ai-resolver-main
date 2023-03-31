@@ -49,10 +49,10 @@ class HandleInertiaRequests extends Middleware
         array_filter($puzzles, static fn($puzzle) => is_object_empty($puzzle) ? false : $puzzle->getWithUrl());
 
         return array_merge(parent::share($request), [
-            'flexibleConfigIndexUrl'                        => route(FlexibleConfigs::ALL->value . '.index'),
-            'puzzles'                                       => $puzzles,
-            'saveLogsUrl'                                   => route('app-state.save-logs'),
-            FlexibleConfigs::SHARED_FLEXIBLE_CONFIG->value  => $sharedFlexibleConfig,
+            'flexibleConfigIndexUrl'                 => route(FlexibleConfigs::all() . '.index'),
+            'puzzles'                                => $puzzles,
+            'saveLogsUrl'                            => route('app-state.save-logs'),
+            FlexibleConfigs::sharedFlexibleConfig()  => $sharedFlexibleConfig,
         ]);
     }
 }

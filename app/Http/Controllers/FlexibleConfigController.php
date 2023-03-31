@@ -31,11 +31,11 @@ class FlexibleConfigController extends Controller
      */
     public function index(): InertiaResponse 
     {
-        [$componentPath, $componentName] = get_component_path(FlexibleConfigs::ALL->value, __FUNCTION__);
+        [$componentPath, $componentName] = get_component_path(FlexibleConfigs::all(), __FUNCTION__);
 
         return Inertia::render("$componentPath/$componentName", [
-            'flexibleConfigUpdateUrl'   => route(FlexibleConfigs::ALL->value . '.update'),
-            FlexibleConfigs::ALL->value => $this->flexibleConfigService->getAllSections(), 
+            'flexibleConfigUpdateUrl' => route(FlexibleConfigs::all() . '.update'),
+            FlexibleConfigs::all()    => $this->flexibleConfigService->getAllSections(), 
         ]);
     }
 
