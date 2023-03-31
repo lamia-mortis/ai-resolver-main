@@ -36,11 +36,11 @@ abstract class AbstractApi implements ApiInterface
      * @throws JsonException
      * @return array<mixed>
      */
-    public function send(string $method, string $path, array $data = []): array
+    public function send(string $method, string $path, array $options = []): array
     {
         try {
             $url = $this->createUrl($path);
-            $response = $this->client->request($method, $url, ['json' => $data]);
+            $response = $this->client->request($method, $url, $options);
             $responseBody = $response->getBody()->getContents();
 
             return json_decode($responseBody, true, 512, JSON_THROW_ON_ERROR);
