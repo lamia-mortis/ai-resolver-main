@@ -16,7 +16,7 @@ class SudokuService
 
     public function solve(SudokuData $sudoku): SudokuData
     {
-       $solved = $this->mindMsApi->send('POST', '/sudoku/solve', $sudoku->toArray());
+       $solved = $this->mindMsApi->send('POST', '/sudoku/solve', ['json' => $sudoku->toArray()]);
        return SudokuFactory::createDto($solved);
     }
 }
