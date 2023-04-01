@@ -26,6 +26,7 @@ export function Board({ setMessage, message, messageVariant, setMessageVariant }
 
   const [sudokuBoard, setSudokuBoard] = useState<Array<Array<number | string>>>([]);
   const [isBoardValid, setIsBoardValid] = useState<boolean>(true);
+  const [solvedSudokuBoard, setSolvedSudokuBoard] = useState<Array<Array<number>>>([]);
   const sudokuSolveUrlTyped = sudokuSolveUrl as string;
 
   sudokuBoardRefs.current = [];
@@ -59,7 +60,22 @@ export function Board({ setMessage, message, messageVariant, setMessageVariant }
   useEffect(() => {
     const isBoardValid = validateEntireBoard(sudokuBoard);
     setIsBoardValid(isBoardValid);
-  },[sudokuBoard]);
+  }, [sudokuBoard]);
+
+  useEffect(() => {
+    let timer = 100;
+
+    solvedSudokuBoard && solvedSudokuBoard.forEach((solvedRow: number[], yIndex: number) => {
+      solvedRow.forEach((solvedCell: number, xIndex: number) => {
+        if(sudokuBoard[yIndex][xIndex]) return;
+        setTimeout(() => {        
+          setSudokuBoard(prevBoard => updateSudokuBoard(prevBoard, solvedCell.toString(), yIndex, xIndex));
+        }, timer);
+
+        timer += 100;
+      })
+    })
+  }, [solvedSudokuBoard])
 
   function changeCellHighlightning(isRemove: boolean ,xIndex: number, yIndex: number) {
     sudokuBoardRefs
@@ -82,35 +98,42 @@ export function Board({ setMessage, message, messageVariant, setMessageVariant }
     return isBoardValid;
   }
 
-  function isValueInRange(input: number) {
+  function isValueInRange(input: string | number) {
     return /^[0-9]$/.test(input.toString());
   }
 
-  function handleInputValue(event:React.ChangeEvent<HTMLInputElement>, yIndex:number, xIndex:number) {
+  function updateSudokuBoard (
+    prevBoard: (number | string)[][],
+    valueToAdd: string,
+    yIndex: number,
+    xIndex: number,
+  ) {
+    const updatedBoard: (number | string)[][] = _.cloneDeep(prevBoard);
+    updatedBoard[yIndex][xIndex] = valueToAdd;
+    return updatedBoard;
+  }
+
+  function handleInputValue(event: React.ChangeEvent<HTMLInputElement>, yIndex: number, xIndex: number) {
     setMessage('');
-    const valueToAdd = event.currentTarget.value === '' ? 0 : event.currentTarget.valueAsNumber;
 
+    // return 0 explicitly to avoid NaN during the empty string convertion to number
+    // 0 will be replaced with an empty string during the sudoku board updating
+    const valueToAdd = event.currentTarget.value === '' || event.currentTarget.value === '0' ? 0 : event.currentTarget.value;
     if (!isValueInRange(valueToAdd)) return;
-
-    const updateSudokuBoard = (prevBoard: (number | string)[][], valueToAdd: number | string) => {
-      const clonedBoard = _.cloneDeep(prevBoard)
-      clonedBoard[yIndex][xIndex] = valueToAdd;
-      return clonedBoard;
-    }
 
     // in case of removing value or value equals 0
     if (!valueToAdd) {
-      setSudokuBoard(prevBoard => updateSudokuBoard(prevBoard, ''));
+      setSudokuBoard(prevBoard => updateSudokuBoard(prevBoard, '', yIndex, xIndex));
       return;
     }
 
     if (!validateCell(valueToAdd, yIndex, xIndex, squareSize, sudokuBoard)) {
-      setSudokuBoard(prevBoard => updateSudokuBoard(prevBoard, valueToAdd));
+      setSudokuBoard(prevBoard => updateSudokuBoard(prevBoard, valueToAdd, yIndex, xIndex));
       return;
     }
 
     event.currentTarget.style.backgroundColor = '';
-    setSudokuBoard(prevBoard => updateSudokuBoard(prevBoard, valueToAdd));
+    setSudokuBoard(prevBoard => updateSudokuBoard(prevBoard, valueToAdd, yIndex, xIndex));
   }
   
   function handleSubmit(sudokuSolveUrlTyped: string, sudokuBoard: (number | string)[][]) {
@@ -120,7 +143,7 @@ export function Board({ setMessage, message, messageVariant, setMessageVariant }
       return;
     }
 
-    function prepareRequestData() {
+    function prepareRequestData(): ISudokuData {
       const requestData: ISudokuData = {board:[[]], squareSize:3};
 
       requestData.board = sudokuBoard.map((row: (number | string)[]) => {
@@ -133,7 +156,11 @@ export function Board({ setMessage, message, messageVariant, setMessageVariant }
       return requestData;
     } 
 
-    axios.post(sudokuSolveUrlTyped, prepareRequestData()).then((res) => console.log('res', res));
+    axios.post(sudokuSolveUrlTyped, prepareRequestData())
+      .then((response) => {
+        const solvedSudokuData: ISudokuData = response.data.sudoku;
+        setSolvedSudokuBoard(solvedSudokuData.board)
+      });
   }
 
   return (
@@ -141,31 +168,31 @@ export function Board({ setMessage, message, messageVariant, setMessageVariant }
       SUDOKU BOARD
       {message && <Alert variant={messageVariant}>{message}</Alert>}
       <table className='sudoku-board'>
-        {sudokuBoard &&
-          sudokuBoard.map((row: (string | number)[], yIndex: number) => {
-            return (
-              <tr key={yIndex} className='sudoku-board-row'>
-                {row.map((cell: string |number, xIndex:number) => (
-                  <td key={xIndex} className='sudoku-board-cell'>
-                    {
-                      <input
-                        className='sudoku-board-input'
-                        value={sudokuBoard[yIndex][xIndex]}
-                        ref={sudokuBoardRefs.current[yIndex][xIndex]}
-                        type='number'
-                        onInput={(event: React.ChangeEvent<HTMLInputElement>) => {
-                          event.currentTarget.value = event.currentTarget.value.replace(/[^1-9]/g, '');
-                        }}
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                          handleInputValue(event, yIndex, xIndex);
-                        }}
-                      />
-                    }
-                  </td>
-                ))}
-              </tr>
-            );
-          })}
+        <tbody>
+          {sudokuBoard &&
+            sudokuBoard.map((row: (string | number)[], yIndex: number) => {
+              return (
+                <tr key={yIndex} className='sudoku-board-row'>
+                  {row.map((cell: string | number, xIndex: number) => (
+                    <td key={xIndex} className='sudoku-board-cell'>
+                      {
+                        <input
+                          className='sudoku-board-input'
+                          value={sudokuBoard[yIndex][xIndex]}
+                          ref={sudokuBoardRefs.current[yIndex][xIndex]}
+                          type='text'
+                          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                            handleInputValue(event, yIndex, xIndex);
+                          }}
+                        />
+                      }
+                    </td>
+                  ))}
+                </tr>
+              );
+            })
+          }
+        </tbody>
       </table>
       <div>
         <button
