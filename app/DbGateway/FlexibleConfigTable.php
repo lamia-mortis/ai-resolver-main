@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\DbGateway; 
 
-use App\Services\DTOs\FlexibleConfig\CommonConfigData;
 use Illuminate\Support\Facades\DB; 
 use App\Services\DTOs\FlexibleConfig\FlexibleConfigData;
 use App\Services\Enums\FlexibleConfigs;
@@ -12,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 use stdClass;
 use Throwable;
 
-class FlexibleConfigCollection 
+class FlexibleConfigTable 
 {
     /** 
      * @param array<string:JsonString> 

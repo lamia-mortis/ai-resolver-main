@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Services; 
 
-use App\DbGateway\PuzzlesGeneralMongoCollection;
+use App\DbGateway\PuzzlesGeneralTable;
 
 class PuzzlesGeneralService 
 {
     public function __construct(
-        protected PuzzlesGeneralMongoCollection $puzzlesGeneralMongoCollection
+        protected PuzzlesGeneralTable $puzzlesGeneralTable
     ){}
 
     /**
@@ -17,6 +17,6 @@ class PuzzlesGeneralService
      */
     public function getGeneralPuzzlesInfo(): array
     {
-        return $this->puzzlesGeneralMongoCollection->getPuzzles();
+        return $this->puzzlesGeneralTable->getPuzzles();
     }
 }
