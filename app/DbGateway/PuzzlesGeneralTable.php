@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 use App\Services\Enums\Puzzles; 
 use Throwable;
 
-class PuzzlesGeneralMongoCollection
+class PuzzlesGeneralTable
 {
     /**
      * @return array<\App\Services\DTOs\PuzzleData>;
