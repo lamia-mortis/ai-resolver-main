@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Inertia\Middleware;
 use App\Services\PuzzlesGeneralService;
 use App\Services\Enums\FlexibleConfigs;
+use App\DbGateway\FlexibleConfigTable; 
+use App\Services\DTOs\FlexibleConfig\FlexibleConfigData;
 use App\Services\FlexibleConfigService;
 
 class HandleInertiaRequests extends Middleware
@@ -45,7 +47,8 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         $puzzles = app(PuzzlesGeneralService::class)->getGeneralPuzzlesInfo();
-        $sharedFlexibleConfig = app(FlexibleConfigService::class)->getAllSections()->getSharedParameters();
+        $flexibleConfig = app(FlexibleConfigService::class)->getAllSections();
+        $sharedFlexibleConfig = $flexibleConfig instanceOf FlexibleConfigData ? $flexibleConfig->getSharedParameters() : $flexibleConfig;
         array_filter($puzzles, static fn($puzzle) => is_object_empty($puzzle) ? false : $puzzle->getWithUrl());
 
         return array_merge(parent::share($request), [
