@@ -10,7 +10,7 @@ return [
     MicroServices::mind() => [
         'url' => [
             'protocol' => env('MIND_MICROSERVICE_PROTOCOL', 'http'),
-            'host'     => env('MIND_MICROSERVICE_HOST', 'ai-resolver.mind-ms'),
+            'host'     => env('MIND_MICROSERVICE_HOST', 'ai-resolver-mind-ms'),
             'port'     => env('MIND_MICROSERVICE_PORT', 8888),
         ],
     ],
